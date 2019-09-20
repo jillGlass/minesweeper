@@ -36,7 +36,7 @@ function startGame() {
     return countSurroundingMines(cell);
   });
   lib.initBoard();
-  board.cells.surroundingMines = countSurroundingMines;
+  surroundingMines = countSurroundingMines;
   document.addEventListener("click", checkForWin);
   document.addEventListener("contextmenu", checkForWin);
 }
@@ -46,15 +46,17 @@ function startGame() {
 // 1. Are all of the cells that are NOT mines visible?
 // 2. Are all of the mines marked?
 function checkForWin() {
-  board.cells.forEach(function(i) {
-    if (board.cells.isMine == true && board.cells.hidden == false) {
+  for (i = 0; i < board.cells.length; i++) {
+    if (board.cells[i].isMine && !board.cells[i].isMarked) {
       return;
-    } else if (board.cells.isMine && board.cells.isMarked == true) {
-      return lib.displayMessage("You win!");
-    } else return;
-  });
+    } else if (!board.cells[i].isMine && board.cells[i].hidden) {
+      return;
+    }
+  }
+  lib.displayMessage("You win!");
 }
 
+//if cell isMine and not marked, return. if cell isn't mine and and is hidden, return.
 //   lib.displayMessage('You win!')
 
 // Define this function to count the number of mines around the cell
@@ -66,9 +68,38 @@ function checkForWin() {
 // It will return cell objects in an array. You should loop through
 // them, counting the number of times `cell.isMine` is true.
 function countSurroundingMines(cell) {
+  var count = 0;
   var surrounding = lib.getSurroundingCells(cell.row, cell.col);
-  var count = [];
   surrounding.forEach(function(i) {
-    if (i.isMine == true) count.push(i++);
+    if (i.isMine == true) {
+      count++;
+    }
   });
+
+  return count;
 }
+
+/*
+function createNewBoard() {
+  for (var y = 0; y < 5; y++) {
+    for (var x = 0; x < 5; x++) {
+      board.cells = {
+        row: x,
+        column: y,
+        isMine: true,
+        isMarked: false,
+        hidden: true
+      };
+    }
+  }
+}
+
+//Each cell will need row, col, isMine, isMarked, and hidden properties.
+//You could start by simply setting every isMine to true, but later you'll probably want to //have a random number of mines scattered throughout the board.
+
+function resetGame() {
+  document.getElementById("newGame").addEventListener("click", createNewBoard);
+}
+
+//creates a new game but still has old one there!
+*/
