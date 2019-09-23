@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", startGame);
 
 // Define your `board` object here!
-var board = {
+/*var board = {
   cells: [
     { row: 0, col: 0, isMine: false, hidden: true, surroundingMines: 0 },
     { row: 0, col: 1, isMine: false, hidden: true, surroundingMines: 1 },
@@ -29,22 +29,36 @@ var board = {
     { row: 4, col: 3, isMine: true, hidden: true, surroundingMines: 1 },
     { row: 4, col: 4, isMine: false, hidden: true, surroundingMines: 2 }
   ]
+};*/
+var board = {
+  cells: []
 };
+//define board object to be empty
+function createNewBoard() {
+  for (var x = 0; x < 5; x++) {
+    for (var y = 0; y < 5; y++)
+      board.cells.push({
+        row: x,
+        column: y,
+        isMine: true,
+        isMarked: false,
+        hidden: true
+      });
+  }
+}
 
 function startGame() {
-  board.cells.forEach(cell => {
-    return countSurroundingMines(cell);
-  });
   lib.initBoard();
-  surroundingMines = countSurroundingMines;
+  createNewBoard();
+  board.cells.forEach(cell => {
+    cell.surroundingMines = countSurroundingMines(cell);
+  });
   document.addEventListener("click", checkForWin);
   document.addEventListener("contextmenu", checkForWin);
 }
 
 // Define this function to look for a win condition:
-//
-// 1. Are all of the cells that are NOT mines visible?
-// 2. Are all of the mines marked?
+
 function checkForWin() {
   for (i = 0; i < board.cells.length; i++) {
     if (board.cells[i].isMine && !board.cells[i].isMarked) {
@@ -55,9 +69,6 @@ function checkForWin() {
   }
   lib.displayMessage("You win!");
 }
-
-//if cell isMine and not marked, return. if cell isn't mine and and is hidden, return.
-//   lib.displayMessage('You win!')
 
 // Define this function to count the number of mines around the cell
 // (there could be as many as 8). You don't have to get the surrounding
@@ -79,27 +90,11 @@ function countSurroundingMines(cell) {
   return count;
 }
 
-/*
-function createNewBoard() {
-  for (var y = 0; y < 5; y++) {
-    for (var x = 0; x < 5; x++) {
-      board.cells = {
-        row: x,
-        column: y,
-        isMine: true,
-        isMarked: false,
-        hidden: true
-      };
-    }
-  }
-}
-
 //Each cell will need row, col, isMine, isMarked, and hidden properties.
 //You could start by simply setting every isMine to true, but later you'll probably want to //have a random number of mines scattered throughout the board.
 
-function resetGame() {
-  document.getElementById("newGame").addEventListener("click", createNewBoard);
-}
+//function resetGame() {
+//  document.getElementById("newGame").addEventListener("click", createNewBoard);
+//}
 
 //creates a new game but still has old one there!
-*/
