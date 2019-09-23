@@ -1,35 +1,7 @@
 document.addEventListener("DOMContentLoaded", startGame);
 
 // Define your `board` object here!
-/*var board = {
-  cells: [
-    { row: 0, col: 0, isMine: false, hidden: true, surroundingMines: 0 },
-    { row: 0, col: 1, isMine: false, hidden: true, surroundingMines: 1 },
-    { row: 0, col: 2, isMine: true, hidden: true, surroundingMines: 0 },
-    { row: 0, col: 3, isMine: false, hidden: true, surroundingMines: 1 },
-    { row: 0, col: 4, isMine: false, hidden: true, surroundingMines: 0 },
-    { row: 1, col: 0, isMine: false, hidden: true, surroundingMines: 1 },
-    { row: 1, col: 1, isMine: false, hidden: true, surroundingMines: 2 },
-    { row: 1, col: 2, isMine: false, hidden: true, surroundingMines: 2 },
-    { row: 1, col: 3, isMine: false, hidden: true, surroundingMines: 2 },
-    { row: 1, col: 4, isMine: false, hidden: true, surroundingMines: 1 },
-    { row: 2, col: 0, isMine: false, hidden: true, surroundingMines: 1 },
-    { row: 2, col: 1, isMine: true, hidden: true, surroundingMines: 0 },
-    { row: 2, col: 2, isMine: false, hidden: true, surroundingMines: 1 },
-    { row: 2, col: 3, isMine: false, hidden: true, surroundingMines: 2 },
-    { row: 2, col: 4, isMine: true, hidden: true, surroundingMines: 1 },
-    { row: 3, col: 0, isMine: false, hidden: true, surroundingMines: 2 },
-    { row: 3, col: 1, isMine: false, hidden: true, surroundingMines: 2 },
-    { row: 3, col: 2, isMine: false, hidden: true, surroundingMines: 2 },
-    { row: 3, col: 3, isMine: false, hidden: true, surroundingMines: 3 },
-    { row: 3, col: 4, isMine: true, hidden: true, surroundingMines: 2 },
-    { row: 4, col: 0, isMine: true, hidden: true, surroundingMines: 0 },
-    { row: 4, col: 1, isMine: false, hidden: true, surroundingMines: 1 },
-    { row: 4, col: 2, isMine: false, hidden: true, surroundingMines: 1 },
-    { row: 4, col: 3, isMine: true, hidden: true, surroundingMines: 1 },
-    { row: 4, col: 4, isMine: false, hidden: true, surroundingMines: 2 }
-  ]
-};*/
+
 var board = {
   cells: []
 };
@@ -39,8 +11,8 @@ function createNewBoard() {
     for (var y = 0; y < 5; y++)
       board.cells.push({
         row: x,
-        column: y,
-        isMine: true,
+        col: y,
+        isMine: Boolean(Math.round(Math.random() * 0.8)),
         isMarked: false,
         hidden: true
       });
@@ -48,8 +20,8 @@ function createNewBoard() {
 }
 
 function startGame() {
-  lib.initBoard();
   createNewBoard();
+  lib.initBoard();
   board.cells.forEach(cell => {
     cell.surroundingMines = countSurroundingMines(cell);
   });
