@@ -8,9 +8,19 @@
     <script src="minesweeper.js"></script>
   </head>
   <body>
-    <div id="message"></div>
-    <div id="notes"></div>
-    <div class="board"></div>
-    <div id="newGame"><button onclick="resetGame()">New Game</button></div>
+    <div class="container">
+      <div class="messageContainer">
+        <div id="message"></div>
+        <div id="newGame">
+          <button
+            value="Refresh Page"
+            onClick="window.location.href = window.location.href"
+          >
+            New Game
+          </button>
+        </div>
+      </div>
+      <div class="board"></div>
+    </div>
   </body>
 </html>

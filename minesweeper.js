@@ -5,14 +5,30 @@ document.addEventListener("DOMContentLoaded", startGame);
 var board = {
   cells: []
 };
+
+// tick sound on each button click
+var snd = new Audio("sounds/tick.wav");
+document.addEventListener("click", function() {
+  snd.play();
+});
+//crackle sound on each Flag
+var sndFlag = new Audio("sounds/crackle.wav");
+document.addEventListener("contextmenu", function() {
+  sndFlag.play();
+});
+//rocket sound on each mine
+var sndMine = new Audio("sounds/smallRocket.mp3");
+//rocket sound on each mine but not working!
+var sndWin = new Audio("sounds/clapping.mp3");
+
 //define board object to be empty
 function createNewBoard() {
-  for (var x = 0; x < 5; x++) {
-    for (var y = 0; y < 5; y++)
+  for (var x = 0; x < 6; x++) {
+    for (var y = 0; y < 6; y++)
       board.cells.push({
         row: x,
         col: y,
-        isMine: Boolean(Math.round(Math.random() * 0.8)),
+        isMine: Boolean(Math.round(Math.random() * 0.7)),
         isMarked: false,
         hidden: true
       });
@@ -39,7 +55,8 @@ function checkForWin() {
       return;
     }
   }
-  lib.displayMessage("You win!");
+  lib.displayMessage("Out of this world!");
+  sndWin.play();
 }
 
 // Define this function to count the number of mines around the cell
@@ -62,11 +79,9 @@ function countSurroundingMines(cell) {
   return count;
 }
 
-//Each cell will need row, col, isMine, isMarked, and hidden properties.
-//You could start by simply setting every isMine to true, but later you'll probably want to //have a random number of mines scattered throughout the board.
-
 //function resetGame() {
-//  document.getElementById("newGame").addEventListener("click", createNewBoard);
+// window.location.href = window.location.href;
+//document.getElementById("newGame").addEventListener("click", startGame);
 //}
 
-//creates a new game but still has old one there!
+//After a win or loss, give players a chance to try again by resetting the board to its default state. You'll need to put classes back the way they were at the start, and re-initialize the global board object.
