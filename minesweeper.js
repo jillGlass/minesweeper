@@ -22,34 +22,29 @@ var board = {
 var difficulty = 5;
 //difficulty. click easy and get 4x4, medium get 5x5, hard get 6x6.
 //easy, onclick,
-window.onload = function() {
-  var easy = document.getElementById("easy");
-  easy.addEventListener("click", createEasy, false);
-  var medium = document.getElementById("medium");
-  medium.addEventListener("click", createMedium, false);
-  var hard = document.getElementById("hard");
-  hard.addEventListener("click", createHard, false);
-};
 
 function createEasy() {
   console.log("easy button pressed");
   clearBoard();
+  resetBoard();
   difficulty = 4;
-  startGame(4);
+  startGame();
 }
 
 function createMedium() {
   console.log("medium button pressed");
   clearBoard();
+  resetBoard();
   difficulty = 5;
-  startGame(5);
+  startGame();
 }
 
 function createHard() {
   console.log("hard button pressed");
   clearBoard();
+  resetBoard();
   difficulty = 6;
-  startGame(6);
+  startGame();
 }
 
 //define board object to be empty
@@ -71,6 +66,9 @@ function clearBoard() {
     cells: []
   };
 }
+function resetBoard() {
+  document.getElementsByClassName("board")[0].innerHTML = "";
+}
 
 function startGame() {
   createNewBoard();
@@ -80,6 +78,12 @@ function startGame() {
   });
   document.addEventListener("click", checkForWin);
   document.addEventListener("contextmenu", checkForWin);
+  var easy = document.getElementById("easy");
+  easy.addEventListener("click", createEasy, false);
+  var medium = document.getElementById("medium");
+  medium.addEventListener("click", createMedium, false);
+  var hard = document.getElementById("hard");
+  hard.addEventListener("click", createHard, false);
 }
 
 // Define this function to look for a win condition:
