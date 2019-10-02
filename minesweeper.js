@@ -1,11 +1,5 @@
 document.addEventListener("DOMContentLoaded", startGame);
 
-// Define your `board` object here!
-
-var board = {
-  cells: []
-};
-
 // tick sound on each button click
 var snd = new Audio("sounds/tick.wav");
 document.addEventListener("click", function() {
@@ -20,11 +14,48 @@ document.addEventListener("contextmenu", function() {
 var sndMine = new Audio("sounds/smallRocket.mp3");
 //rocket sound on each mine but not working!
 var sndWin = new Audio("sounds/clapping.mp3");
+// Define your `board` object here!
+
+var board = {
+  cells: []
+};
+var difficulty = 5;
+//difficulty. click easy and get 4x4, medium get 5x5, hard get 6x6.
+//easy, onclick,
+window.onload = function() {
+  var easy = document.getElementById("easy");
+  easy.addEventListener("click", createEasy, false);
+  var medium = document.getElementById("medium");
+  medium.addEventListener("click", createMedium, false);
+  var hard = document.getElementById("hard");
+  hard.addEventListener("click", createHard, false);
+};
+
+function createEasy() {
+  console.log("easy button pressed");
+  clearBoard();
+  difficulty = 4;
+  startGame(4);
+}
+
+function createMedium() {
+  console.log("medium button pressed");
+  clearBoard();
+  difficulty = 5;
+  startGame(5);
+}
+
+function createHard() {
+  console.log("hard button pressed");
+  clearBoard();
+  difficulty = 6;
+  startGame(6);
+}
 
 //define board object to be empty
 function createNewBoard() {
-  for (var x = 0; x < 6; x++) {
-    for (var y = 0; y < 6; y++)
+  for (var x = 0; x < difficulty; x++) {
+    for (var y = 0; y < difficulty; y++)
       board.cells.push({
         row: x,
         col: y,
@@ -33,6 +64,12 @@ function createNewBoard() {
         hidden: true
       });
   }
+}
+function clearBoard() {
+  console.log("board cleared");
+  board = {
+    cells: []
+  };
 }
 
 function startGame() {
