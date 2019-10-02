@@ -16,6 +16,7 @@ body {
   align-items: center;
   justify-content: flex-center;
   flex-direction: column;
+  background-color: #eee2dc;
 }
 
 .messageContainer {
