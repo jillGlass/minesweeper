@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", startGame);
+//mine count
 
 // tick sound on each button click
 var snd = new Audio("sounds/tick.wav");
@@ -29,6 +30,7 @@ function createEasy() {
   resetBoard();
   difficulty = 4;
   startGame();
+  mineCount = 0;
 }
 
 function createMedium() {
@@ -37,6 +39,7 @@ function createMedium() {
   resetBoard();
   difficulty = 5;
   startGame();
+  mineCount = 0;
 }
 
 function createHard() {
@@ -45,6 +48,7 @@ function createHard() {
   resetBoard();
   difficulty = 6;
   startGame();
+  mineCount = 0;
 }
 
 //define board object to be empty
@@ -77,6 +81,8 @@ function startGame() {
     cell.surroundingMines = countSurroundingMines(cell);
   });
   document.addEventListener("click", checkForWin);
+  document.addEventListener("click", checkForMineCount);
+  document.addEventListener("click", checkForMineCount);
   document.addEventListener("contextmenu", checkForWin);
   var easy = document.getElementById("easy");
   easy.addEventListener("click", createEasy, false);
@@ -120,9 +126,19 @@ function countSurroundingMines(cell) {
   return count;
 }
 
-//function resetGame() {
-// window.location.href = window.location.href;
-//document.getElementById("newGame").addEventListener("click", startGame);
-//}
+//add a counter of how many flags left to use (1 flag per bomb).xx
+//checkForMineCount will count how many mines there are in that board. Display for easy level.
 
-//After a win or loss, give players a chance to try again by resetting the board to its default state. You'll need to put classes back the way they were at the start, and re-initialize the global board object.
+var mineCount = 0;
+function checkForMineCount() {
+  for (i = 0; i < board.cells.length; i++) {
+    if (board.cells[i].isMine) {
+      mineCount++;
+    }
+    if (difficulty == 4) {
+      document.getElementById("message").innerText =
+        "Rockets hidden:" + mineCount;
+    }
+  }
+  document.removeEventListener("click", checkForMineCount);
+}
