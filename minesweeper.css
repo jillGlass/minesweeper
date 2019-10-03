@@ -1,3 +1,10 @@
+:focus {
+  outline: none;
+}
+::-moz-focus-inner {
+  border: 0;
+}
+
 html,
 body {
   height: 100%;
@@ -9,6 +16,7 @@ body {
   align-items: center;
   justify-content: flex-center;
   flex-direction: column;
+  background-color: #eee2dc;
 }
 
 .messageContainer {
@@ -22,6 +30,10 @@ body {
   align-items: center;
   justify-items: center;
 }
+.difficulty {
+  padding-top: 1rem;
+  text-align: center;
+}
 
 #newGame {
   padding-top: 1rem;
@@ -31,10 +43,18 @@ body {
   font-size: 2.5rem;
   margin: 0.3rem;
 }
-
+#message {
+  background-color: grey;
+  border: #585454;
+  margin-bottom: 0.2em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-size: 2.5rem;
+  height: 4.5rem;
+}
 .container {
-  background-color: rgba(69, 140, 180, 0.62);
-  border-radius: 10%;
+  background-color: rgba(134, 113, 141, 0.62);
+  border-radius: 2%;
   padding: 3rem;
   margin-top: 3rem;
 }
@@ -43,22 +63,23 @@ body {
   flex-wrap: wrap;
   padding-top: 1.2rem;
   justify-content: center;
+  align-content: center;
+  margin: 0;
 }
 button {
   display: inline-block;
   border: none;
+  background: none;
   padding: 0.8rem 2rem;
   margin: 0;
   text-decoration: none;
-  background: #91a3bd;
-  color: #ffffff;
-  border-radius: 5%;
+  background: #c0c0c0;
+  color: black;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
-  transition: background 250ms ease-in-out, transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  outline: none;
+  border-radius: 2px;
 }
 
 button:hover,
@@ -71,22 +92,18 @@ button:focus {
   outline-offset: -4px;
 }
 
-button:active {
-  transform: scale(0.99);
-}
-
 .board div {
   color: rgb(40, 27, 85);
   background-color: white;
   font-size: 2rem;
   width: 75px;
   height: 75px;
-  border: 1px #ccc dotted;
-  border-radius: 20%;
   margin: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 2px;
+  border: #a29b9b;
 }
 
 .board div:hover {

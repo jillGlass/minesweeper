@@ -1,10 +1,5 @@
 document.addEventListener("DOMContentLoaded", startGame);
-
-// Define your `board` object here!
-
-var board = {
-  cells: []
-};
+//mine count
 
 // tick sound on each button click
 var snd = new Audio("sounds/tick.wav");
@@ -20,11 +15,59 @@ document.addEventListener("contextmenu", function() {
 var sndMine = new Audio("sounds/smallRocket.mp3");
 //rocket sound on each mine but not working!
 var sndWin = new Audio("sounds/clapping.mp3");
+// Define your `board` object here!
+
+var board = {
+  cells: []
+};
+
+//newgame to be at level played previously
+//onclick of newGame button,
+function newGame() {
+  if (this.difficulty == 6) {
+    createHard();
+  } else if (this.difficulty == 5) {
+    createMedium();
+  } else if (this.difficulty == 4) {
+    createEasy();
+  }
+}
+//"window.location.href = window.location.href"
+var difficulty = 5;
+//difficulty. click easy and get 4x4, medium get 5x5, hard get 6x6.
+//easy, onclick,
+
+function createEasy() {
+  console.log("easy button pressed");
+  clearBoard();
+  resetBoard();
+  difficulty = 4;
+  startGame();
+  mineCount = 0;
+}
+
+function createMedium() {
+  console.log("medium button pressed");
+  clearBoard();
+  resetBoard();
+  difficulty = 5;
+  startGame();
+  mineCount = 0;
+}
+
+function createHard() {
+  console.log("hard button pressed");
+  clearBoard();
+  resetBoard();
+  difficulty = 6;
+  startGame();
+  mineCount = 0;
+}
 
 //define board object to be empty
 function createNewBoard() {
-  for (var x = 0; x < 6; x++) {
-    for (var y = 0; y < 6; y++)
+  for (var x = 0; x < difficulty; x++) {
+    for (var y = 0; y < difficulty; y++)
       board.cells.push({
         row: x,
         col: y,
@@ -34,6 +77,15 @@ function createNewBoard() {
       });
   }
 }
+function clearBoard() {
+  console.log("board cleared");
+  board = {
+    cells: []
+  };
+}
+function resetBoard() {
+  document.getElementsByClassName("board")[0].innerHTML = "";
+}
 
 function startGame() {
   createNewBoard();
@@ -42,7 +94,14 @@ function startGame() {
     cell.surroundingMines = countSurroundingMines(cell);
   });
   document.addEventListener("click", checkForWin);
+  document.addEventListener("click", checkForMineCount);
   document.addEventListener("contextmenu", checkForWin);
+  var easy = document.getElementById("easy");
+  easy.addEventListener("click", createEasy, false);
+  var medium = document.getElementById("medium");
+  medium.addEventListener("click", createMedium, false);
+  var hard = document.getElementById("hard");
+  hard.addEventListener("click", createHard, false);
 }
 
 // Define this function to look for a win condition:
@@ -79,9 +138,19 @@ function countSurroundingMines(cell) {
   return count;
 }
 
-//function resetGame() {
-// window.location.href = window.location.href;
-//document.getElementById("newGame").addEventListener("click", startGame);
-//}
+//add a counter of how many flags left to use (1 flag per bomb).xx
+//checkForMineCount will count how many mines there are in that board. Display for easy level.
 
-//After a win or loss, give players a chance to try again by resetting the board to its default state. You'll need to put classes back the way they were at the start, and re-initialize the global board object.
+var mineCount = 0;
+function checkForMineCount() {
+  for (i = 0; i < board.cells.length; i++) {
+    if (board.cells[i].isMine) {
+      mineCount++;
+    }
+    if (difficulty == 4) {
+      document.getElementById("message").innerText =
+        "Rockets hidden:" + mineCount;
+    }
+  }
+  document.removeEventListener("click", checkForMineCount);
+}
