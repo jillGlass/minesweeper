@@ -20,6 +20,19 @@ var sndWin = new Audio("sounds/clapping.mp3");
 var board = {
   cells: []
 };
+
+//newgame to be at level played previously
+//onclick of newGame button,
+function newGame() {
+  if (this.difficulty == 6) {
+    createHard();
+  } else if (this.difficulty == 5) {
+    createMedium();
+  } else if (this.difficulty == 4) {
+    createEasy();
+  }
+}
+//"window.location.href = window.location.href"
 var difficulty = 5;
 //difficulty. click easy and get 4x4, medium get 5x5, hard get 6x6.
 //easy, onclick,
@@ -81,7 +94,6 @@ function startGame() {
     cell.surroundingMines = countSurroundingMines(cell);
   });
   document.addEventListener("click", checkForWin);
-  document.addEventListener("click", checkForMineCount);
   document.addEventListener("click", checkForMineCount);
   document.addEventListener("contextmenu", checkForWin);
   var easy = document.getElementById("easy");
